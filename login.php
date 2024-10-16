@@ -5,9 +5,7 @@ require "utils.php";
 # $sesi = encSesi(2, "manu", "manu@n.c", "1", $config['key']);
 $sesi = verifikasiSession($_SESSION["loginsesi"] ?? false, $config['key']);
 if ($sesi['status'] ?? $sesi == true ) {
-    if($sesi['role'] == 1) {
-        redirect("admin");
-    } else if($sesi['role'] == 2) {
+    if($sesi['role'] == 2) {
         redirect("staff");
     } else if($sesi['role'] == 3) {
         redirect("user");
@@ -25,9 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       if (password_verify($pass, $data["Password"])) {
         $encSesi = encSesi($data["UserID"], $data["Username"], $data["Email"], $data["permission"], $config['key']);
         $_SESSION["loginsesi"] = $encSesi;
-        if($data['permission'] == 1) {
-            redirect("admin");
-        } else if($data['permission'] == 2) {
+        if($data['permission'] == 2) {
             redirect("staff");
         } else if($data['permission'] == 3) {
             redirect("user");

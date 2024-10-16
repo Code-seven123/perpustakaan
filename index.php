@@ -1,5 +1,7 @@
 <?php
+    session_start();
     require_once "./connection.php";
+    require_once "./utils.php";
     $query = $conn->query("SELECT 
         COUNT(DISTINCT buku.BukuID) AS TotalBuku,
         COUNT(DISTINCT peminjaman.PeminjamID) AS TotalPinjam,
@@ -73,7 +75,21 @@
         <ul class="list-none flex justify-start flex-row items-center gap-4">
             <li><a href="">Beranda</a></li>
             <li><a href="./populer.php">Populer</a></li>
-            <li class="p-2 shadow-md border-black hover:scale-125 rounded-full bg-red-100"><a href="login.php">Sign Up</a></li>
+            <?php 
+                $dataSesi = verifikasiSession($_SESSION["loginsesi"] ?? false, $config['key']);
+                if($dataSesi != false) {
+                    if($dataSesi['status'] == true || $dataSesi['status'] == 1) {
+                        if($dataSesi['role'] == 2) {
+                            $url = "./staff";
+                        } else if($dataSesi['role'] == 3) {
+                            $url = "./user";
+                        }
+            ?>
+            <li><a href="<?= $url ?? './' ?>">Dashboard</a></li>
+            <li class="p-2 shadow-md border-black hover:scale-125 rounded-full bg-red-500"><a href="./logout.php">Logout</a></li>
+            <?php }} else { ?> 
+            <li class="p-2 shadow-md border-black hover:scale-125 rounded-full bg-red-100"><a href="./login.php">Sign Up</a></li>
+            <?php } ?>
         </ul>
     </nav>
     <div class="container flex flex-row justify-center items-center border-b-2 border-t-2 border-black my-40 p-10 mx-60" style="height: 80vh">

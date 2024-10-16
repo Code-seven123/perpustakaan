@@ -5,9 +5,7 @@ require "utils.php";
 # $sesi = encSesi(2, "manu", "manu@n.c", "1", $config['key']);
 $sesi = verifikasiSession($_SESSION["loginsesi"] ?? false, $config['key']);
 if ($sesi['status'] ?? $sesi == true ) {
-    if($sesi['role'] == 1) {
-        redirect("admin");
-    } else if($sesi['role'] == 2) {
+    if($sesi['role'] == 2) {
         redirect("staff");
     } else if($sesi['role'] == 3) {
         redirect("user");
