@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 16, 2024 at 02:31 AM
+-- Generation Time: Oct 18, 2024 at 06:00 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -33,17 +33,16 @@ CREATE TABLE `buku` (
   `KategoriBukuID` int(11) NOT NULL,
   `Penulis` varchar(255) NOT NULL,
   `Penerbit` varchar(255) NOT NULL,
-  `TahunTerbit` int(4) NOT NULL,
-  `PDFPath` varchar(255) NOT NULL
+  `TahunTerbit` int(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `buku`
 --
 
-INSERT INTO `buku` (`BukuID`, `Judul`, `KategoriBukuID`, `Penulis`, `Penerbit`, `TahunTerbit`, `PDFPath`) VALUES
-(1, 'Harry Potter', 0, 'J. K. Rowling', 'Gramedia', 2001, 'storage'),
-(2, 'Shopee', 0, 'Jostein Gaarden', 'Gramedia', 2001, 'storage');
+INSERT INTO `buku` (`BukuID`, `Judul`, `KategoriBukuID`, `Penulis`, `Penerbit`, `TahunTerbit`) VALUES
+(1, 'Harry Potter', 0, 'J. K. Rowling', 'Gramedia', 2001),
+(2, 'Shopee', 0, 'Jostein Gaarden', 'Gramedia', 2001);
 
 -- --------------------------------------------------------
 
@@ -61,7 +60,48 @@ CREATE TABLE `kategoribuku` (
 --
 
 INSERT INTO `kategoribuku` (`KategoriID`, `NamaKategori`) VALUES
-(1, 'Novel Fantasi');
+(1, 'Novel Fantasi'),
+(2, 'Fiksi'),
+(3, 'Non-Fiksi'),
+(4, 'Misteri'),
+(5, 'Romantis'),
+(6, 'Fantasi'),
+(7, 'Ilmu Pengetahuan'),
+(8, 'Biografi'),
+(9, 'Sejarah'),
+(10, 'Sains Fiksi'),
+(11, 'Komik'),
+(12, 'Buku Anak-anak'),
+(13, 'Pemasaran'),
+(14, 'Manajemen'),
+(15, 'Pengembangan Diri'),
+(16, 'Teknologi'),
+(17, 'Kesehatan'),
+(18, 'Agama'),
+(19, 'Sosial'),
+(20, 'Kesenian'),
+(21, 'Kuliner'),
+(22, 'Petualangan'),
+(23, 'Horror'),
+(24, 'Drama'),
+(25, 'Thriller'),
+(26, 'Dewasa'),
+(27, 'Inspirasi'),
+(28, 'Bisnis'),
+(29, 'Kriminal'),
+(30, 'Edukasi'),
+(31, 'Motivasi'),
+(32, 'Kreativitas'),
+(33, 'Psikologi'),
+(34, 'Literatur'),
+(35, 'Referensi'),
+(36, 'Travel'),
+(37, 'Kepemimpinan'),
+(38, 'Kebudayaan'),
+(39, 'Fashion'),
+(40, 'Musik'),
+(41, 'Olahraga'),
+(42, 'Keluarga');
 
 -- --------------------------------------------------------
 
@@ -95,6 +135,13 @@ CREATE TABLE `koleksipribadi` (
   `BukuID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `koleksipribadi`
+--
+
+INSERT INTO `koleksipribadi` (`KoleksiID`, `UserID`, `BukuID`) VALUES
+(4, 6, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -106,9 +153,19 @@ CREATE TABLE `peminjaman` (
   `UserID` int(11) NOT NULL,
   `BukuID` int(11) NOT NULL,
   `TanggalPeminjaman` date NOT NULL,
-  `TanggalPembelian` varchar(255) NOT NULL,
-  `StatusPeminjaman` enum('dikembalikan','expired','dipinjam') NOT NULL
+  `TanggalPengembalian` varchar(255) NOT NULL,
+  `StatusPeminjaman` enum('dikembalikan','expired','dipinjam','dibatalkan') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `peminjaman`
+--
+
+INSERT INTO `peminjaman` (`PeminjamID`, `UserID`, `BukuID`, `TanggalPeminjaman`, `TanggalPengembalian`, `StatusPeminjaman`) VALUES
+(1, 6, 1, '2024-10-16', '11111111111111', 'dipinjam'),
+(2, 6, 2, '2024-10-16', '30', 'dipinjam'),
+(3, 6, 1, '2024-10-18', '30', 'dipinjam'),
+(4, 6, 1, '2024-09-01', '20', 'expired');
 
 -- --------------------------------------------------------
 
@@ -123,6 +180,13 @@ CREATE TABLE `ulasanbuku` (
   `Ulasan` text NOT NULL,
   `Rating` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `ulasanbuku`
+--
+
+INSERT INTO `ulasanbuku` (`UlasanID`, `UserID`, `BukuID`, `Ulasan`, `Rating`) VALUES
+(3, 6, 1, 'ssssssss', 5);
 
 -- --------------------------------------------------------
 
@@ -145,7 +209,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`UserID`, `Username`, `Password`, `Email`, `NamaLengkap`, `permission`, `Alamat`) VALUES
-(6, 'tik', '$2y$10$xEFcFkQG.RbhDLSGRwkmD.q2VLfNORDorL3dlU2WDt/U9IFfeRrIO', 'manu@g.lll', 'tikmaja', 3, '11111111111111');
+(6, 'tik', '$2y$10$xEFcFkQG.RbhDLSGRwkmD.q2VLfNORDorL3dlU2WDt/U9IFfeRrIO', 'manu@g.lll', 'tikmaja', 3, '11111111111111'),
+(7, 'manu', '$2y$10$qH4aAV1dcWj9c.trWBqy2um1j8xCphPtXkS72IXbpo.XF12naVDCy', 'manu@gac.com', 'manu', 2, 'arga');
 
 --
 -- Indexes for dumped tables
@@ -216,7 +281,7 @@ ALTER TABLE `buku`
 -- AUTO_INCREMENT for table `kategoribuku`
 --
 ALTER TABLE `kategoribuku`
-  MODIFY `KategoriID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `KategoriID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `kategoribuku_relasi`
@@ -228,25 +293,25 @@ ALTER TABLE `kategoribuku_relasi`
 -- AUTO_INCREMENT for table `koleksipribadi`
 --
 ALTER TABLE `koleksipribadi`
-  MODIFY `KoleksiID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `KoleksiID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `peminjaman`
 --
 ALTER TABLE `peminjaman`
-  MODIFY `PeminjamID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `PeminjamID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `ulasanbuku`
 --
 ALTER TABLE `ulasanbuku`
-  MODIFY `UlasanID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `UlasanID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables

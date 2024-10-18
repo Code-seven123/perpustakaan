@@ -12,14 +12,6 @@ if ($sesi['status'] ?? $sesi == true ) {
     }
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    /*array(
-        "username" => "tik",
-        "password" => "12345678",
-        "vPasword" => "12345678",
-        "email" => "manu@g.lll",
-        "namaLengkap" => "tikmaja",
-        "alamat" => "maja"
-    );*/
     try {
         if($_POST['password'] == $_POST['vPasword']) {
             $sql = "INSERT INTO user (Username, Password, Email, NamaLengkap, Alamat) 

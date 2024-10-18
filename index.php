@@ -16,6 +16,31 @@
         peminjaman ON buku.BukuID = peminjaman.BukuID;
     ");
     $data = $query->fetch();
+    $sql = "SELECT PeminjamID, TanggalPeminjaman, TanggalPengembalian FROM peminjaman";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    $peminjamanData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // Waktu sekarang
+    $sekarang = new DateTime();
+
+    foreach ($peminjamanData as $data) {
+        // Hitung tanggal batas pengembalian
+        $tanggalPeminjaman = new DateTime($data['TanggalPeminjaman']);
+        $tanggalPengembalian = (int)$data['TanggalPengembalian']; // Pastikan ini adalah integer
+        $tanggalBatas = $tanggalPeminjaman->modify("+$tanggalPengembalian days");
+
+        // Cek jika sekarang lebih dari tanggal batas
+        if ($sekarang > $tanggalBatas) {
+            // Lakukan aksi, misalnya mengupdate status peminjaman
+            $updateSql = "UPDATE peminjaman SET StatusPeminjaman = 'expired' WHERE PeminjamID = :peminjamID";
+            $updateStmt = $conn->prepare($updateSql);
+            $updateStmt->bindParam(':peminjamID', $data['PeminjamID']);
+            $updateStmt->execute();
+            
+            // Opsional: bisa menambahkan log atau notifikasi di sini
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -80,12 +105,16 @@
                 if($dataSesi != false) {
                     if($dataSesi['status'] == true || $dataSesi['status'] == 1) {
                         if($dataSesi['role'] == 2) {
-                            $url = "./staff";
+                            $html = <<<HTML
+                                <li><a href="./staff">Dashboard Admin</a></li>
+                            HTML;
+                            $url = "./user";
                         } else if($dataSesi['role'] == 3) {
                             $url = "./user";
                         }
             ?>
             <li><a href="<?= $url ?? './' ?>">Dashboard</a></li>
+            <?= $html ?? '' ?>
             <li class="p-2 shadow-md border-black hover:scale-125 rounded-full bg-red-500"><a href="./logout.php">Logout</a></li>
             <?php }} else { ?> 
             <li class="p-2 shadow-md border-black hover:scale-125 rounded-full bg-red-100"><a href="./login.php">Sign Up</a></li>

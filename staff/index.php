@@ -4,7 +4,7 @@
     require_once "../utils.php";
     $sesi = verifikasiSession($_SESSION["loginsesi"] ?? false, $config['key']);
     if ($sesi['status'] ?? $sesi == true ) {
-        if($sesi['role'] != 2 && $sesi['role'] != 3) {
+        if($sesi['role'] != 2) {
             redirect("..");
         }
     } else {
@@ -59,19 +59,8 @@
         <ul class="list-none flex justify-start flex-row items-center gap-4">
             <li><a href="..">Beranda</a></li>
             <li><a href="../populer.php">Populer</a></li>
-            <li><a href="./">Dashboard</a></li>
-            <?php 
-                $dataSesi = verifikasiSession($_SESSION["loginsesi"] ?? false, $config['key']);
-                if($dataSesi != false) {
-                    if($dataSesi['status'] == true || $dataSesi['status'] == 1) {
-                        if($dataSesi['role'] == 2) {
-                            echo <<<HTML
-                                <li><a href="../staff">Dashboard Admin</a></li>
-                            HTML;
-                        }
-                    }
-                }
-            ?>
+            <li><a href="../user">Dashboard</a></li>
+            <li><a href="./">Dashboard Admin</a></li>
             <li class="p-2 shadow-md border-black hover:scale-125 rounded-full bg-red-500"><a href="../logout.php">Logout</a></li>
         </ul>
     </nav>
@@ -85,18 +74,12 @@
                     <li class="<?= ($page == 'bookshelf') ? 'bg-gray-200' : '' ?>hover:bg-gray-200">
                         <a href="?page=bookshelf" class="block px-4 py-2 text-gray-700 flex items-center"><img src="https://www.svgrepo.com/show/455392/bookshelf-library.svg" class="w-9 me-4" alt=""> Bookshelf</a>
                     </li>
-                    <li class="<?= ($page == 'borrow') ? 'bg-gray-200' : '' ?>hover:bg-gray-200">
-                        <a href="?page=borrow" class="block px-4 py-2 text-gray-700 flex items-center"><img src="https://www.svgrepo.com/show/58793/take-out-from-the-cart.svg" class="w-9 me-4" alt=""> pinjaman</a>
-                    </li>
-                    <li class="<?= ($page == 'collection') ? 'bg-gray-200' : '' ?>hover:bg-gray-200">
-                        <a href="?page=collection" class="block px-4 py-2 text-gray-700 flex items-center"><img src="https://www.svgrepo.com/show/501146/collection.svg" class="w-9 me-4" alt=""> Koleksi</a>
-                    </li>
                 </ul>
             </nav>
         </div>
         <div class="flex-1 p-6 ms-64">
             <?php
-                $valid_pages = ['borrow', 'collection', 'borrowup', 'bookshelf', 'addcollection', 'deletecollection'];
+                $valid_pages = ["alldata"];
                 if (in_array($page, $valid_pages) && file_exists("$page-page.php")) {
                     include "$page-page.php";
                 } else {
