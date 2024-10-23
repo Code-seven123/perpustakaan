@@ -81,15 +81,15 @@
                         <a href="?page=staff" class="block px-4 py-2 text-gray-700 flex items-center"><img src="https://www.svgrepo.com/show/435494/admin.svg" class="w-9 me-4" alt=""> Administator</a>
                     </li>
                     <hr class="my-2">
-                    <li class="hover:bg-gray-200">
-                        <a href="./create-laporan.php" class="block px-4 py-2 text-gray-700 flex items-center"><img src="https://www.svgrepo.com/show/535366/envelope.svg" class="w-9 me-4" alt=""> Laporan</a>
+                    <li class="<?= ($page == 'report') ? 'bg-gray-200' : '' ?> hover:bg-gray-200">
+                        <a href="?page=report" class="block px-4 py-2 text-gray-700 flex items-center"><img src="https://www.svgrepo.com/show/535366/envelope.svg" class="w-9 me-4" alt=""> Laporan</a>
                     </li>
                 </ul>
             </nav>
         </div>
         <div class="flex-1 p-6 ms-64">
             <?php
-                $valid_pages = ["book", "deletebook", "updatebook", "addbook", "borrow", "staff"];
+                $valid_pages = ["book", "report", "deletebook", "updatebook", "addbook", "borrow", "staff"];
                 if (in_array($page, $valid_pages) && file_exists("$page-page.php")) {
                     include "$page-page.php";
                 } else {
