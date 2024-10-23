@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 18, 2024 at 06:00 AM
+-- Generation Time: Oct 23, 2024 at 04:48 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -41,8 +41,7 @@ CREATE TABLE `buku` (
 --
 
 INSERT INTO `buku` (`BukuID`, `Judul`, `KategoriBukuID`, `Penulis`, `Penerbit`, `TahunTerbit`) VALUES
-(1, 'Harry Potter', 0, 'J. K. Rowling', 'Gramedia', 2001),
-(2, 'Shopee', 0, 'Jostein Gaarden', 'Gramedia', 2001);
+(9, 'shopee', 13, 'aaa', 'aa', 111);
 
 -- --------------------------------------------------------
 
@@ -120,8 +119,7 @@ CREATE TABLE `kategoribuku_relasi` (
 --
 
 INSERT INTO `kategoribuku_relasi` (`KategoriBukuID`, `BukuID`, `KategoriID`) VALUES
-(1, 1, 1),
-(2, 2, 1);
+(13, 9, 7);
 
 -- --------------------------------------------------------
 
@@ -134,13 +132,6 @@ CREATE TABLE `koleksipribadi` (
   `UserID` int(11) NOT NULL,
   `BukuID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `koleksipribadi`
---
-
-INSERT INTO `koleksipribadi` (`KoleksiID`, `UserID`, `BukuID`) VALUES
-(4, 6, 1);
 
 -- --------------------------------------------------------
 
@@ -162,10 +153,8 @@ CREATE TABLE `peminjaman` (
 --
 
 INSERT INTO `peminjaman` (`PeminjamID`, `UserID`, `BukuID`, `TanggalPeminjaman`, `TanggalPengembalian`, `StatusPeminjaman`) VALUES
-(1, 6, 1, '2024-10-16', '11111111111111', 'dipinjam'),
-(2, 6, 2, '2024-10-16', '30', 'dipinjam'),
-(3, 6, 1, '2024-10-18', '30', 'dipinjam'),
-(4, 6, 1, '2024-09-01', '20', 'expired');
+(6, 6, 9, '2024-10-23', '30', 'dipinjam'),
+(7, 7, 9, '2024-10-23', '30', 'dipinjam');
 
 -- --------------------------------------------------------
 
@@ -186,7 +175,7 @@ CREATE TABLE `ulasanbuku` (
 --
 
 INSERT INTO `ulasanbuku` (`UlasanID`, `UserID`, `BukuID`, `Ulasan`, `Rating`) VALUES
-(3, 6, 1, 'ssssssss', 5);
+(5, 6, 9, 'Sangat Bagus Sekali', 5);
 
 -- --------------------------------------------------------
 
@@ -209,8 +198,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`UserID`, `Username`, `Password`, `Email`, `NamaLengkap`, `permission`, `Alamat`) VALUES
-(6, 'tik', '$2y$10$xEFcFkQG.RbhDLSGRwkmD.q2VLfNORDorL3dlU2WDt/U9IFfeRrIO', 'manu@g.lll', 'tikmaja', 3, '11111111111111'),
-(7, 'manu', '$2y$10$qH4aAV1dcWj9c.trWBqy2um1j8xCphPtXkS72IXbpo.XF12naVDCy', 'manu@gac.com', 'manu', 2, 'arga');
+(6, 'tik', '$2y$10$xEFcFkQG.RbhDLSGRwkmD.q2VLfNORDorL3dlU2WDt/U9IFfeRrIO', 'manu@g.lll', 'tikmaja', 2, '11111111111111'),
+(7, 'manu', '$2y$10$qH4aAV1dcWj9c.trWBqy2um1j8xCphPtXkS72IXbpo.XF12naVDCy', 'manu@gac.com', 'manu', 3, 'arga');
 
 --
 -- Indexes for dumped tables
@@ -275,7 +264,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `buku`
 --
 ALTER TABLE `buku`
-  MODIFY `BukuID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `BukuID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `kategoribuku`
@@ -287,7 +276,7 @@ ALTER TABLE `kategoribuku`
 -- AUTO_INCREMENT for table `kategoribuku_relasi`
 --
 ALTER TABLE `kategoribuku_relasi`
-  MODIFY `KategoriBukuID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `KategoriBukuID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `koleksipribadi`
@@ -299,13 +288,13 @@ ALTER TABLE `koleksipribadi`
 -- AUTO_INCREMENT for table `peminjaman`
 --
 ALTER TABLE `peminjaman`
-  MODIFY `PeminjamID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `PeminjamID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `ulasanbuku`
 --
 ALTER TABLE `ulasanbuku`
-  MODIFY `UlasanID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `UlasanID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `user`

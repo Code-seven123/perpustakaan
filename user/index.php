@@ -82,13 +82,13 @@
             </div>
             <nav class="mt-6">
                 <ul>
-                    <li class="<?= ($page == 'bookshelf') ? 'bg-gray-200' : '' ?>hover:bg-gray-200">
+                    <li class="<?= ($page == 'bookshelf') ? 'bg-gray-200' : '' ?> hover:bg-gray-200">
                         <a href="?page=bookshelf" class="block px-4 py-2 text-gray-700 flex items-center"><img src="https://www.svgrepo.com/show/455392/bookshelf-library.svg" class="w-9 me-4" alt=""> Bookshelf</a>
                     </li>
-                    <li class="<?= ($page == 'borrow') ? 'bg-gray-200' : '' ?>hover:bg-gray-200">
+                    <li class="<?= ($page == 'borrow') ? 'bg-gray-200' : '' ?> hover:bg-gray-200">
                         <a href="?page=borrow" class="block px-4 py-2 text-gray-700 flex items-center"><img src="https://www.svgrepo.com/show/58793/take-out-from-the-cart.svg" class="w-9 me-4" alt=""> pinjaman</a>
                     </li>
-                    <li class="<?= ($page == 'collection') ? 'bg-gray-200' : '' ?>hover:bg-gray-200">
+                    <li class="<?= ($page == 'collection') ? 'bg-gray-200' : '' ?> hover:bg-gray-200">
                         <a href="?page=collection" class="block px-4 py-2 text-gray-700 flex items-center"><img src="https://www.svgrepo.com/show/501146/collection.svg" class="w-9 me-4" alt=""> Koleksi</a>
                     </li>
                 </ul>

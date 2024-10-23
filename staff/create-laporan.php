@@ -107,3 +107,4 @@ $pdo = null;
     }
 </style>
 <button onclick="window.print();">Simpan sebagai PDF</button>
+<button onclick="history.back();">Kembali</button>
