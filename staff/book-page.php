@@ -98,8 +98,10 @@
                         <td class="py-3 px-4"><?= $value['TahunTerbit'] ?></td>
                         <td class="py-3 px-4" colspan="2">
                             <a href="?page=deletebook&id=<?= $value['BukuID'] ?>" class="w-full text-white p-3 rounded-full bg-red-500">Hapus</a>
-                            <a href="?page=peminjam" class="w-full text-white p-3 rounded-full bg-indigo-400">Peminjam</a>
+                            <a href="?page=borrow&id=<?= $value['BukuID'] ?>" class="w-full text-white p-3 rounded-full bg-indigo-400">Peminjam</a>
                             <a href="?page=addbook&id=<?= $value['BukuID'] ?>" class="w-full text-white p-3 rounded-full bg-yellow-600">Edit</a>
+                            <a href="?page=borrowup&id=<?= $value['BukuID'] ?>" class="w-full text-white p-3 rounded-full bg-orange-300">Pinjam</a>
+                            <a href="?page=ulasandetail&id=<?= $value['BukuID'] ?>" class="w-full text-white p-3 rounded-full bg-indigo-300">Ulasan</a>
                         </td>
                     </tr>
                     <?php }} else { ?>

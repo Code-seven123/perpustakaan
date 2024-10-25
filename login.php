@@ -63,9 +63,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input type="password" id="password" name="pass" required class="block w-full p-2 border border-gray-300 rounded-md focus:border-blue-500 focus:ring focus:ring-blue-200" placeholder="Password">
       </div>
       <button type="submit" class="bg-yellow-500 text-white font-bold py-2 rounded-md hover:bg-yellow-600 transition duration-200" style="width: 100%;">Login</button>
-      <p class="mt-4 text-center text-sm text-gray-600">
-        Belum punya akun? <a href="regis.php" class="text-blue-600 hover:underline">Registrasi di sini</a>
-      </p>
     </form>
   </div>
   <footer style="width: 100vw; height: 10vh" class="flex justify-center items-center bg-slate-500">

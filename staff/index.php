@@ -71,25 +71,31 @@
             </div>
             <nav class="mt-6">
                 <ul>
-                    <li class="<?= ($page == 'bookshelf') ? 'bg-gray-200' : '' ?> hover:bg-gray-200">
+                    <li class="<?= ($page == 'book') ? 'bg-gray-200' : '' ?> hover:bg-gray-200">
                         <a href="?page=book" class="block px-4 py-2 text-gray-700 flex items-center"><img src="https://www.svgrepo.com/show/455392/bookshelf-library.svg" class="w-9 me-4" alt=""> Bookshelf</a>
                     </li>
                     <li class="<?= ($page == 'borrow') ? 'bg-gray-200' : '' ?> hover:bg-gray-200">
                         <a href="?page=borrow" class="block px-4 py-2 text-gray-700 flex items-center"><img src="https://www.svgrepo.com/show/58793/take-out-from-the-cart.svg" class="w-9 me-4" alt=""> Peminjaman</a>
                     </li>
-                    <li class="<?= ($page == 'staff') ? 'bg-gray-200' : '' ?> hover:bg-gray-200">
-                        <a href="?page=staff" class="block px-4 py-2 text-gray-700 flex items-center"><img src="https://www.svgrepo.com/show/435494/admin.svg" class="w-9 me-4" alt=""> Administator</a>
+                    <li class="<?= ($page == 'kategori') ? 'bg-gray-200' : '' ?> hover:bg-gray-200">
+                        <a href="?page=kategori" class="block px-4 py-2 text-gray-700 flex items-center"><img src="https://www.svgrepo.com/show/203006/bookshelf.svg" class="w-9 me-4" alt=""> Kategori</a>
+                    </li>
+                    <li class="<?= ($page == 'ulasan') ? 'bg-gray-200' : '' ?> hover:bg-gray-200">
+                        <a href="?page=ulasan" class="block px-4 py-2 text-gray-700 flex items-center"><img src="https://www.svgrepo.com/show/230680/rating-rate.svg" class="w-9 me-4" alt=""> Ulasan</a>
                     </li>
                     <hr class="my-2">
                     <li class="<?= ($page == 'report') ? 'bg-gray-200' : '' ?> hover:bg-gray-200">
                         <a href="?page=report" class="block px-4 py-2 text-gray-700 flex items-center"><img src="https://www.svgrepo.com/show/535366/envelope.svg" class="w-9 me-4" alt=""> Laporan</a>
+                    </li>
+                    <li class="<?= ($page == 'staff') ? 'bg-gray-200' : '' ?> hover:bg-gray-200">
+                        <a href="?page=staff" class="block px-4 py-2 text-gray-700 flex items-center"><img src="https://www.svgrepo.com/show/435494/admin.svg" class="w-9 me-4" alt=""> Administator</a>
                     </li>
                 </ul>
             </nav>
         </div>
         <div class="flex-1 p-6 ms-64">
             <?php
-                $valid_pages = ["book", "report", "deletebook", "updatebook", "addbook", "borrow", "staff"];
+                $valid_pages = ["book", "report", "ulasan", "ulasandetail", "borrowup", "regis", "kategori", "deletebook", "updatebook", "addbook", "borrow", "staff"];
                 if (in_array($page, $valid_pages) && file_exists("$page-page.php")) {
                     include "$page-page.php";
                 } else {

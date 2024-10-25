@@ -13,7 +13,9 @@
 ?>
 
 <h1 class="text-4xl font-bold mb-7 text-center">Daftar User</h1>
-
+<div class="w-full p-3 bg-slate-300 mb-3">
+    <a href="?page=regis" class="underline">Tambah Akun</a>
+</div>
 <?php if (isset($msg)) { ?>
 <div class="flex justify-center align-center <?= $colormsg ?? 'bg-red-100' ?> w-full border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
     <?= $msg ?>

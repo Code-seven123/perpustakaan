@@ -96,7 +96,7 @@
         </div>
         <div class="flex-1 p-6 ms-64">
             <?php
-                $valid_pages = ['borrow', 'collection', 'borrowup', 'bookshelf', 'addcollection', 'deletecollection'];
+                $valid_pages = ['borrow', 'collection', "rating", 'borrowup', 'bookshelf', 'addcollection', 'deletecollection'];
                 if (in_array($page, $valid_pages) && file_exists("$page-page.php")) {
                     include "$page-page.php";
                 } else {
