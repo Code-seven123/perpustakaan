@@ -1,4 +1,14 @@
-<?php $BukuID = $_GET['id']; ?>
+<?php 
+
+$BukuID = $_GET['id']; 
+    if(isset($_GET['action'])) {
+        if($_GET['action'] == "remove") {
+            $ulasanID = $_GET['idUlasan'];
+            $delete = $conn->prepare("DELETE FROM ulasanbuku WHERE UlasanID=?");
+            $delete->execute([$ulasanID]);
+        }
+    }
+?>
 <div class="mb-6">
     <h2 class="text-xl font-semibold mb-4">Filter Ulasan</h2>
     <form action="" method="post" class="flex space-x-4">
@@ -112,7 +122,7 @@
                 <td class="py-3 px-6"><?= $value['Ulasan'] ?></td>
                 <td class="py-3 px-6"><?= str_repeat("⭐", (int)$value['Rating']) ?></td>
                 <td class="py-3 px-6">
-                    <a href="" class="bg-red-400 p-2 rounded-md border border-green-200">delete</a>
+                    <a href="?page=ulasandetail&id=<?= $BukuID ?>&action=remove&idUlasan=<?= $value['UlasanID'] ?>" class="bg-red-400 p-2 rounded-md border border-green-200">delete</a>
                 </td>
             </tr>
             <?php }} else { ?>

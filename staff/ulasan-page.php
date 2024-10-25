@@ -27,7 +27,7 @@
         <p class="text-gray-600">Penerbit: <?= $value['Penerbit'] ?></p>
         <p class="text-gray-600">Tahun Terbit: <?= $value['TahunTerbit'] ?></p>
         <p class="text-gray-600">Kategori: <?= $value['NamaKategori'] ?></p>
-        <button class="w-full bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition"><a href="?page=ulasandetail&id=<?= $value['BukuID'] ?>">Ulasan Data</a></button>
+        <button onclick="window.location.href = `?page=ulasandetail&id=<?= $value['BukuID'] ?>`" class="w-full bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition">Ulasan Data</button>
     </div>
     <?php }} else { ?>
         <h1 class="text-4xl">Data buku tidak ditemukan</h1>
