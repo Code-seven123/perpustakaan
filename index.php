@@ -5,17 +5,16 @@
     $query = $conn->query("SELECT 
         COUNT(DISTINCT buku.BukuID) AS TotalBuku,
         COUNT(DISTINCT peminjaman.PeminjamID) AS TotalPinjam,
-        COUNT(DISTINCT kategoribuku.KategoriID) AS TotalKategori
+        COUNT(DISTINCT ulasanbuku.UlasanID) AS TotalUlasan
     FROM 
         buku
     LEFT JOIN 
-        kategoribuku_relasi ON buku.BukuID = kategoribuku_relasi.BukuID
-    LEFT JOIN 
-        kategoribuku ON kategoribuku_relasi.KategoriID = kategoribuku.KategoriID
+        ulasanbuku ON ulasanbuku.BukuID = buku.BukuID
     LEFT JOIN 
         peminjaman ON buku.BukuID = peminjaman.BukuID;
     ");
-    $data = $query->fetch();
+    $countData = $query->fetch();
+    
     $sql = "SELECT PeminjamID, TanggalPeminjaman, TanggalPengembalian FROM peminjaman";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
@@ -139,15 +138,15 @@
         <ul class="list-none flex justify-around gap-4 p-4 rounded-lg bg-amber-400">
             <li class="flex flex-col justify-center shadow-inner rounded-sm p-5 text-center">
                 Buku
-                <span><?= $data['TotalBuku'] ?? '0' ?></span>
+                <span><?= $countData['TotalBuku'] ?? '0' ?></span>
             </li>
             <li class="flex flex-col justify-center shadow-inner rounded-sm p-5 text-center">
-                Kategori
-                <span><?= $data['TotalKategori'] ?? '0' ?></span>
+                Dinilai
+                <span><?= $countData['TotalUlasan'] ?? '0' ?></span>
             </li>
             <li class="flex flex-col justify-center shadow-inner rounded-sm p-5 text-center">
-                Peminjam
-                <span><?= $data['TotalPinjam'] ?? '0' ?></span>
+                Dipinjam
+                <span><?= $countData['TotalPinjam'] ?? '0' ?></span>
             </li>
         </ul>
     </div>
