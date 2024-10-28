@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ':bukuid' => $_POST['bukuid'],
             ':tgltake' => $_POST['tgltake'],
             ':tglkembali' => ($_POST['tglkembalioption'] == "custom") ? $_POST['tglkembali'] : $_POST['tglkembalioption'],
-            ':status' => "dipinjam",
+            ':status' => "pending",
         ]);
         echo "<script>history.back()</script>";
     } catch (PDOException $e) {

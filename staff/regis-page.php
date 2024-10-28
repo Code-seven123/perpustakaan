@@ -7,7 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt = $conn->prepare($sql);
             if($stmt->execute([
                 ':username' => $_POST['username'],
-                ':password' => password_hash($_POST['password'], PASSWORD_DEFAULT), // Hash password
+                ':password' => password_hash($_POST['password'], PASSWORD_BCRYPT), // Hash password
                 ':email' => $_POST['email'],
                 ':namaLengkap' => $_POST['namaLengkap'],
                 ':alamat' => $_POST['alamat']

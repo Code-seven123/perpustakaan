@@ -10,6 +10,9 @@
             } else if($action == "cancel") {
                 $query->bindValue(":status", "dikembalikan");
                 $query->execute();
+            } else if($action == "approve") {
+                $query->bindValue(":status", "dipinjam");
+                $query->execute();
             }
         } else {
             $msg = "Operasi dibatalkan, tidak ada pinjaman dipilih";
@@ -22,7 +25,7 @@
     <?= $msg ?>
 </div>
 <?php } ?>
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
     <?php
     if(isset($_GET['id'])) {
         $sql = "SELECT
@@ -70,21 +73,36 @@
     foreach ($peminjamanData as $data):
         $tanggal = new DateTime($data['TanggalPeminjaman']);
         $tanggal->modify("+".$data['TanggalPengembalian']." days");
-        $tanggalPengembalian = $tanggal->format('j F, Y'); ?>
-        <div class="bg-white rounded-lg shadow-lg p-8 w-96">
+        $tanggalPengembalian = $tanggal->format('j F, Y');
+
+        $tanggalPeminjaman = new DateTime($data['TanggalPeminjaman']);
+        $tanggalPengembalian = (int)$data['TanggalPengembalian']; // Pastikan ini adalah integer
+        $tanggalBatas = $tanggalPeminjaman->modify("+$tanggalPengembalian days");
+        if ($sekarang > $tanggalBatas) {
+            $selisih = $tanggalBatas->diff($sekarang);
+            $dendaInt = $config['denda'] * $selisih->days;
+            $dendaIDR = number_format($dendaInt, 2, ',', '.');
+        }
+        ?>
+        <div class="<?= $data['StatusPeminjaman'] == 'expired' ? 'bg-red-100' : 'bg-white' ?> rounded-lg shadow-lg p-8 w-96">
             <div class="mb-4">
                 <p class="font-medium text-gray-700">Dipinjam Oleh: <span class="font-normal"><?= htmlspecialchars($data['Username']) ?> | <?= htmlspecialchars($data['NamaLengkap']) ?></span></p>
                 <p class="font-medium text-gray-700">Judul Buku: <span class="font-normal"><?= htmlspecialchars($data['Judul']) ?></span></p>
                 <p class="font-medium text-gray-700">Tanggal Peminjaman: <span class="font-normal"><?= htmlspecialchars(date("j F, Y", strtotime($data['TanggalPeminjaman']))) ?></span></p>
                 <p class="font-medium text-gray-700">Tanggal Pengembalian: <span class="font-normal"><?= htmlspecialchars($tanggalPengembalian) ?></span></p>
                 <p class="font-medium text-gray-700">Status Peminjaman: <span class="font-normal"><?= htmlspecialchars($data['StatusPeminjaman']) ?></span></p>
+                <?php if($data['StatusPeminjaman'] == "expired" && isset($dendaIDR)) { ?>
+                    <p class="font-medium text-red-400">Denda: <span class="font-normal"><?= $selisih->days ?> hari = Rp<?= htmlspecialchars($dendaIDR) ?></span></p>
+                <?php } ?>
             </div>
 
             <div class="flex space-x-2 mb-6">
                 <button onclick="window.location.href = '?page=borrow&action=close&id=<?= $data['PeminjamID'] ?>'" class="flex-1 bg-yellow-500 text-white py-2 rounded-md hover:bg-yellow-600 transition duration-200">Dibatalkan</button>
                 <button onclick="window.location.href = '?page=borrow&action=cancel&id=<?= $data['PeminjamID'] ?>'" class="flex-1 bg-green-600 text-white py-2 rounded-md hover:bg-green-700 transition duration-200">Dikembalikan</button>
             </div>
-
+            <?php if($data['StatusPeminjaman'] == "pending") { ?>
+            <button onclick="window.location.href = '?page=borrow&action=approve&id=<?= $data['PeminjamID'] ?>'" class="flex-1 bg-yellow-300 w-full text-white py-2 rounded-md hover:bg-green-700 transition duration-200">Diijinkan</button>
+            <?php } ?>
             <hr class="my-4">
         </div>
     <?php endforeach; ?>

@@ -42,7 +42,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Registrasi</title>
+  <title>Sign Up</title>
+  <link rel="shortcut icon" href="https://www.svgrepo.com/show/498972/people.svg" type="image/x-icon">
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100">
@@ -58,10 +59,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <label for="username" class="sr-only">Username / Email</label>
         <input type="text" id="username" name="user" required class="block w-full p-2 border border-gray-300 rounded-md focus:border-blue-500 focus:ring focus:ring-blue-200" placeholder="Username atau Email">
       </div>
-      <div class="mb-4">
+      <div>
         <label for="password" class="sr-only">Password</label>
         <input type="password" id="password" name="pass" required class="block w-full p-2 border border-gray-300 rounded-md focus:border-blue-500 focus:ring focus:ring-blue-200" placeholder="Password">
       </div>
+      <a href="password-change.php" class="underline text-blue-600 my-4">Forgot my Password</a>
       <button type="submit" class="bg-yellow-500 text-white font-bold py-2 rounded-md hover:bg-yellow-600 transition duration-200" style="width: 100%;">Login</button>
     </form>
   </div>
