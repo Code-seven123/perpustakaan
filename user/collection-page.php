@@ -34,7 +34,8 @@
             <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"><a href="?page=deletecollection&id=<?= $value['BukuID'] ?>">Hapus dari Koleksi</a></button>
         </div>
     </div>
-    <?php }} else { ?>
-        <h1 class="text-4xl text-center w-full">Data buku tidak ditemukan</h1>
-    <?php } ?>
+    <?php }} ?>
 </div>
+<?php if(!isset($dataBuku) || empty($dataBuku)) { ?>
+    <h1 class="text-4xl text-center">Data buku tidak ditemukan</h1>
+<?php } ?>

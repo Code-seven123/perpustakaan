@@ -13,7 +13,7 @@
     
     $page = $_GET['page'] ?? 'bookshelf';
 
-    $sql = "SELECT PeminjamID, TanggalPeminjaman, TanggalPengembalian FROM peminjaman";
+    $sql = "SELECT PeminjamID, TanggalPeminjaman, TanggalPengembalian, StatusPeminjaman FROM peminjaman";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
     $peminjamanData = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -22,20 +22,14 @@
     $sekarang = new DateTime();
 
     foreach ($peminjamanData as $data) {
-        // Hitung tanggal batas pengembalian
         $tanggalPeminjaman = new DateTime($data['TanggalPeminjaman']);
-        $tanggalPengembalian = (int)$data['TanggalPengembalian']; // Pastikan ini adalah integer
+        $tanggalPengembalian = (int)$data['TanggalPengembalian'];
         $tanggalBatas = $tanggalPeminjaman->modify("+$tanggalPengembalian days");
-
-        // Cek jika sekarang lebih dari tanggal batas
-        if ($sekarang > $tanggalBatas) {
-            // Lakukan aksi, misalnya mengupdate status peminjaman
+        if ($sekarang > $tanggalBatas && $data['StatusPeminjaman'] == 'dipinjam') {
             $updateSql = "UPDATE peminjaman SET StatusPeminjaman = 'expired' WHERE PeminjamID = :peminjamID";
             $updateStmt = $conn->prepare($updateSql);
             $updateStmt->bindParam(':peminjamID', $data['PeminjamID']);
             $updateStmt->execute();
-            
-            // Opsional: bisa menambahkan log atau notifikasi di sini
         }
     }
 ?>
